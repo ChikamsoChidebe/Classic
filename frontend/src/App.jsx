@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Toaster } from 'react-hot-toast';
 import { loadUser } from './store/slices/authSlice';
 import { getCategories } from './store/slices/categorySlice';
 
@@ -42,42 +41,108 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Load user if token exists
     const token = localStorage.getItem('token');
     if (token) {
       dispatch(loadUser());
     }
+    
+    // Load categories
     dispatch(getCategories());
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Toaster position="top-right" />
+    <div>
       <Navbar />
-      <main className="min-h-screen">
+      <main>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
-          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-          <Route path="/orders/:id" element={<ProtectedRoute><OrderDetail /></ProtectedRoute>} />
+          {/* Protected Customer Routes */}
+          <Route path="/cart" element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          } />
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+          <Route path="/orders" element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          } />
+          <Route path="/orders/:id" element={
+            <ProtectedRoute>
+              <OrderDetail />
+            </ProtectedRoute>
+          } />
           
-          <Route path="/vendor/dashboard" element={<ProtectedRoute requiredRole="vendor"><VendorDashboard /></ProtectedRoute>} />
-          <Route path="/vendor/products" element={<ProtectedRoute requiredRole="vendor"><VendorProducts /></ProtectedRoute>} />
-          <Route path="/vendor/products/add" element={<ProtectedRoute requiredRole="vendor"><AddProduct /></ProtectedRoute>} />
-          <Route path="/vendor/products/edit/:id" element={<ProtectedRoute requiredRole="vendor"><EditProduct /></ProtectedRoute>} />
-          <Route path="/vendor/orders" element={<ProtectedRoute requiredRole="vendor"><VendorOrders /></ProtectedRoute>} />
+          {/* Vendor Routes */}
+          <Route path="/vendor/dashboard" element={
+            <ProtectedRoute requiredRole="vendor">
+              <VendorDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/vendor/products" element={
+            <ProtectedRoute requiredRole="vendor">
+              <VendorProducts />
+            </ProtectedRoute>
+          } />
+          <Route path="/vendor/products/add" element={
+            <ProtectedRoute requiredRole="vendor">
+              <AddProduct />
+            </ProtectedRoute>
+          } />
+          <Route path="/vendor/products/edit/:id" element={
+            <ProtectedRoute requiredRole="vendor">
+              <EditProduct />
+            </ProtectedRoute>
+          } />
+          <Route path="/vendor/orders" element={
+            <ProtectedRoute requiredRole="vendor">
+              <VendorOrders />
+            </ProtectedRoute>
+          } />
           
-          <Route path="/admin/dashboard" element={<ProtectedRoute requiredRole="admin"><AdminDashboard /></ProtectedRoute>} />
-          <Route path="/admin/users" element={<ProtectedRoute requiredRole="admin"><AdminUsers /></ProtectedRoute>} />
-          <Route path="/admin/vendors" element={<ProtectedRoute requiredRole="admin"><AdminVendors /></ProtectedRoute>} />
-          <Route path="/admin/products" element={<ProtectedRoute requiredRole="admin"><AdminProducts /></ProtectedRoute>} />
-          <Route path="/admin/orders" element={<ProtectedRoute requiredRole="admin"><AdminOrders /></ProtectedRoute>} />
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/users" element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminUsers />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/vendors" element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminVendors />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/products" element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminProducts />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/orders" element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminOrders />
+            </ProtectedRoute>
+          } />
         </Routes>
       </main>
       <Footer />
