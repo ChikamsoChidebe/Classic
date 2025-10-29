@@ -1,0 +1,12 @@
+{
+  "name": "classic-wardrobe",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
