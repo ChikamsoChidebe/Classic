@@ -2,11 +2,11 @@
   "name": "classic-wardrobe",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm ci && npm run build",
     "start": "cd backend && npm start",
     "dev": "cd backend && npm run dev"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   }
 }
