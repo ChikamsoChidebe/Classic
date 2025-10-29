@@ -13,19 +13,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
-        <Toaster 
-          position="top-right"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: '#363636',
-              color: '#fff'
-            },
-            success: {
-              duration: 3000
-            }
-          }}
-        />
+        <Toaster position="top-right" />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
